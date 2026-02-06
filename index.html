@@ -17,14 +17,15 @@ html, body {
     height: 100%;
     font-family: 'Lato', Arial, sans-serif;
 
-    /* NEUER HINTERGRUND */
+    /* Hintergrundbild */
     background: url('background.jpg') no-repeat center center fixed;
     background-size: cover;
+
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* verhindert Scrollen */
+    overflow: hidden;
 }
 
 /* CONTAINER MIT SPOTLIGHT EFFEKT */
@@ -45,6 +46,7 @@ html, body {
     display: block;
     margin: 0 auto 25px auto;
     animation: pulse 2.5s infinite alternate;
+    background: transparent; /* Hintergrund transparent */
 }
 
 @keyframes pulse {
