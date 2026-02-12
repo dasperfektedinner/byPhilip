@@ -2,25 +2,19 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Terminvorschlag</title>
+<title>Perfektes Dinner</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
 <style>
-/* BODY + HINTERGRUND */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
     font-family: 'Lato', Arial, sans-serif;
-
-    /* Hintergrundbild */
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
-
+    background: linear-gradient(180deg, #000000, #0b1a2a, #1f2f4a);
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -28,128 +22,148 @@ html, body {
     overflow: hidden;
 }
 
-/* CONTAINER MIT SPOTLIGHT EFFEKT */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255,215,150,0.06), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255,200,120,0.08), transparent 40%);
+    animation: floatBg 14s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes floatBg {
+    from { transform: translateY(0); }
+    to { transform: translateY(-25px); }
+}
+
 .container {
-    background: radial-gradient(circle at center, rgba(255,255,255,0.12), rgba(0,0,50,0.85));
-    padding: 50px 55px;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.08), rgba(0,0,30,0.9));
+    padding: 25px 55px 50px;
     border-radius: 25px;
-    text-align: center; 
+    text-align: center;
     box-shadow: 0 30px 70px rgba(0,0,0,0.7);
     max-width: 520px;
     width: 90%;
     position: relative;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
 }
 
-/* LOGO MIT PULS EFFEKT */
-.logo {
-    width: 120px;
-    display: block;
-    margin: 0 auto 25px auto;
-    animation: pulse 2.5s infinite alternate;
-    background: transparent; /* Hintergrund transparent */
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
-    50% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(255,255,255,0.5)); }
-    100% { transform: scale(1.02); filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)); }
-}
-
-/* ÜBERSCHRIFT */
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2em; 
-    margin-bottom: 25px;
-    letter-spacing: 1px;
-    font-weight: 700;
-    text-align: center; 
-}
-
-/* EINLADUNGSTEXT */
-.invite-text {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.4em;
-    margin: 12px 0;
-    line-height: 1.5;
-}
-
-/* TERMIN DATEN */
-.termin-daten {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15em;
-    margin: 8px 0;
-    line-height: 1.5;
-}
-
-/* ABGRENZUNGSLINIEN */
-.divider {
-    height: 1px;
-    background: rgba(255,255,255,0.25);
-    margin: 20px 0;
-    border-radius: 1px;
-}
-
-/* BUTTONS */
-.btn {
-    margin-top: 20px;
-    padding: 14px 30px;
-    font-size: 1em;
-    font-weight: 600;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    background: linear-gradient(180deg, #ffffff, #dddddd);
-    color: #000000;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    min-width: 230px;
-}
-
-.btn:hover {
-    background: #ffffff;
-    transform: scale(1.05);
-}
-
-.green {
-    background: linear-gradient(180deg, #4caf50, #2e7d32);
-    color: white;
-}
-
-.green:hover {
-    background: #43a047;
-}
-
-/* ZURÜCK BUTTON oben links */
+/* Back Button */
 .back-btn {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1em;
-    color: #ffffff;
-    text-decoration: underline;
+    top: 12px;
+    left: 12px;
+    font-size: 0.75em;
     cursor: pointer;
-    transition: color 0.3s ease;
+    text-decoration: underline;
+    z-index: 20;
 }
 
-.back-btn:hover {
-    color: #ddd;
+/* Logo */
+.logo {
+    width: 115px;
+    margin: 20px auto 5px;
+    animation: float 3s ease-in-out infinite alternate;
+}
+@keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
 }
 
-/* SEITEN + ANIMATION */
-.page {
+/* Seiten */
+.page { opacity: 0; transform: scale(0.95); transition: 0.5s; display: none; }
+.page.active { display: block; opacity: 1; transform: scale(1); }
+
+/* Countdown */
+#countdown {
+    font-family: monospace;
+    font-size: 1.05em;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    opacity: 0.85;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow: 0 0 6px gold; }
+    to { text-shadow: 0 0 18px #ffd27d; }
+}
+
+/* Text */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em;
+    margin-bottom: 15px;
+    animation: fadeDown 1s ease forwards;
     opacity: 0;
-    transform: scale(0.95) rotate(-1deg) translateY(20px);
-    transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    display: none;
+}
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.page.active {
-    display: block;
-    opacity: 1;
-    transform: scale(1) rotate(0deg) translateY(0);
+.invite-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6em;
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
 }
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* Karten */
+.termin-daten {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1em;
+    margin: 6px 0;
+    background: rgba(255,255,255,0.08);
+    padding: 8px 14px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+/* Maps */
+.maps-link { color: red; text-decoration: none; }
+
+/* Buttons */
+.btn {
+    margin-top: 12px;
+    padding: 12px 26px;
+    font-size: 0.95em;
+    border-radius: 30px;
+    background: linear-gradient(180deg, #ffffff, #dddddd);
+    color: #000;
+    text-decoration: none;
+    display: inline-block;
+    min-width: 210px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.btn:hover { transform: scale(1.05); }
+
+.btn::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: rgba(255,255,255,0.4);
+    transform: rotate(25deg);
+    animation: sweep 3s infinite;
+}
+@keyframes sweep {
+    0% { left: -75%; }
+    60% { left: 120%; }
+    100% { left: 120%; }
+}
+
+.green { background: linear-gradient(180deg, #4caf50, #2e7d32); color: white; }
 </style>
 </head>
 
@@ -157,68 +171,74 @@ h1 {
 
 <div class="container">
 
-    <!-- SEITE 1 -->
-    <div class="page active" id="page1">
-        <img src="logo.png" alt="Koch Logo" class="logo">
-        <h1>Terminvorschlag</h1>
-        <button class="btn" onclick="showDetails()">Anzeigen</button>
-    </div>
+<div class="page active" id="page1">
+    <img src="logo.png" class="logo">
+    <h1>Terminvorschlag</h1>
+    <button class="btn" onclick="showDetails()">Anzeigen</button>
+</div>
 
-    <!-- SEITE 2 -->
-    <div class="page" id="page2">
-        <img src="logo.png" alt="Koch Logo" class="logo">
+<div class="page" id="page2">
+    <div class="back-btn" onclick="goBack()">Zurück</div>
 
-        <p class="invite-text">Hiermit lade ich dich herzlich zu meinem „Perfekten Dinner“ ein.</p>
+    <img src="logo.png" class="logo">
+    <div id="countdown">[ -- : -- : -- ]</div>
 
-        <div class="divider"></div>
+    <p class="invite-text">Hiermit lade ich dich herzlich zu meinem „Perfekten Dinner“ ein.</p>
 
-        <p class="termin-daten">Am: 21.02.2026</p>
-        <p class="termin-daten">Wo: Thiedeweg 23b</p>
-        <p class="termin-daten">Wann: 18 Uhr</p>
-        <p class="termin-daten">Dresscode: Locker und gemütlich</p>
+    <p class="termin-daten">Am: 21.02.2026</p>
+    <p class="termin-daten">
+        Wo:
+        <a class="maps-link" target="_blank"
+           href="https://www.google.com/maps/search/?api=1&query=Thiedeweg+23b,+22047+Hamburg">📍Maps</a>
+    </p>
+    <p class="termin-daten">Wann: 18 Uhr</p>
+    <p class="termin-daten">Dresscode: Locker & gemütlich</p>
 
-        <div class="divider"></div>
-
-        <a class="btn green"
-           href="sms:+4915209767662?body=Ich%20nehme%20am%20Perfekten%20Dinner%20teil!">
-            Termin bestätigen
-        </a>
-
-        <a class="btn" href="Speisekarte.pdf" download>
-            Speisekarte herunterladen
-        </a>
-
-        <div class="back-btn" onclick="goBack()">Zurück</div>
-
-    </div>
+    <a class="btn green" onclick="confirmDinner()">Termin bestätigen</a>
+    <a class="btn" href="Speisekarte_Getränkekarte.pdf">🍝 Speise und Getränkekarte 🍷</a>
+</div>
 
 </div>
 
 <script>
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+
 function showDetails() {
-    const p1 = document.getElementById("page1");
-    const p2 = document.getElementById("page2");
-
-    p1.classList.remove("active");
-
+    page1.classList.remove("active");
     setTimeout(() => {
-        p1.style.display = "none";
-        p2.style.display = "block";
-        setTimeout(() => p2.classList.add("active"), 50);
+        page1.style.display = "none";
+        page2.style.display = "block";
+        page2.classList.add("active");
     }, 200);
 }
 
 function goBack() {
-    const p1 = document.getElementById("page1");
-    const p2 = document.getElementById("page2");
-
-    p2.classList.remove("active");
-
+    page2.classList.remove("active");
     setTimeout(() => {
-        p2.style.display = "none";
-        p1.style.display = "block";
-        setTimeout(() => p1.classList.add("active"), 50);
+        page2.style.display = "none";
+        page1.style.display = "block";
+        page1.classList.add("active");
     }, 200);
+}
+
+/* Countdown */
+const eventDate = new Date("2026-02-21T18:00:00").getTime();
+const cd = document.getElementById("countdown");
+
+setInterval(() => {
+    const now = new Date().getTime();
+    let diff = eventDate - now;
+    if(diff<0) diff=0;
+    let h = String(Math.floor(diff / (1000*60*60))).padStart(2,"0");
+    let m = String(Math.floor((diff%(1000*60*60))/(1000*60))).padStart(2,"0");
+    let s = String(Math.floor((diff%(1000*60))/1000)).padStart(2,"0");
+    cd.textContent = `[ ${h} : ${m} : ${s} ]`;
+},1000);
+
+/* DIREKTE SMS */
+function confirmDinner() {
+    window.location.href = "sms:+4915209767662?body=Ich%20nehme%20am%20Perfekten%20Dinner%20teil!";
 }
 </script>
 
